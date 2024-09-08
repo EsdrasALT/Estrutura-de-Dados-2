@@ -4,6 +4,8 @@
 
 void cria(FILA *fila){
 	fila->traseira = (PONT) malloc (sizeof(CELULA));
+	//validador para caso não seja alocado
+	//não encerrar programa, mas avisar o erro
 	fila->frente = fila->traseira;
 	fila->traseira->prox = fila->traseira;
 	fila->traseira->prox=NULL;
@@ -50,4 +52,3 @@ int look (FILA *fila, ITEM *item){
 int tamanho (FILA fila){
 	return fila.tamanho;
 }
-
