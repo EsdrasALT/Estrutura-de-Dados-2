@@ -95,6 +95,8 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="executavel.cdt.managedbuild.target.gnu.mingw.exe.315898891" name="Executable" projectType="cdt.managedbuild.target.gnu.mingw.exe"/>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.1527745663;cdt.managedbuild.config.gnu.mingw.exe.debug.1527745663.;cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.1299489918;cdt.managedbuild.tool.gnu.c.compiler.input.1600185937">
@@ -103,13 +105,5 @@
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.release.1186900730;cdt.managedbuild.config.gnu.mingw.exe.release.1186900730.;cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.release.1919751935;cdt.managedbuild.tool.gnu.c.compiler.input.1797658472">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.1703457191;cdt.managedbuild.config.gnu.mingw.exe.debug.1703457191.;cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.122305542;cdt.managedbuild.tool.gnu.c.compiler.input.994301870">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.release.185319325;cdt.managedbuild.config.gnu.mingw.exe.release.185319325.;cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.release.873192451;cdt.managedbuild.tool.gnu.c.compiler.input.1880473233">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>
