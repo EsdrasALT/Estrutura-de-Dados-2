@@ -10,6 +10,7 @@
 #include "fila.h"
 
 int main(void){
+	setbuf(stdout,NULL);
 	FILE *arq;
 	FILA fila;
 	ITEM item;
@@ -17,25 +18,8 @@ int main(void){
 
 	cria (&fila);
 
-//	arq = fopen ("src/arq.txt","r");
-//	while (fscanf (arq,"%d",&i) != EOF){
-//		item.chave = i;
-//		if (enqueue (item, &fila) == -1)
-//			printf("Erro no compilamento de %d\n", i);
-//	}
-//
-//	printf("Tamano da fila %d\n", tamanho(fila));
-//	if(look(&fila, &item))
-//		printf("Erro no exame do topo da fila \n");
-//	printf("Elemento no topo %d\n", item.chave);
-//
-//	printf("Fila: ");
-//	while (!dequeue (&fila, &item))
-//		printf("%d ", item.chave);
-//	printf("\n");
-
 		do{
-			printf("Selecione a opção: \n\n");
+			printf("\nSelecione a opção:\n");
 			printf("[1] - Inserir (enqueue): \n");
 			printf("[2] - Remover (dequeue): \n");
 			printf("[3] - Olhar o primeiro elemento: \n");
@@ -48,18 +32,20 @@ int main(void){
 			case 1:
 				printf("Informe o elemento para adicionar na fila: ");
 				scanf("%d", &item.chave);
-				enqueue(item,fila);
+				enqueue(item,&fila);
 				break;
 			case 2:
-				int dequeue(FILA*,ITEM*); //Remover(dequeue)
-
-				dequeue(fila,item);
+				dequeue(&fila,&item);
 				break;
 			case 3:
-				look();
+				if(look(&fila,&item)){
+					printf("Erro no examinar da fila\n");
+				} else {
+				printf("Elemento na frente da fila: %d\n",item.chave);
+				}
 				break;
 			case 4:
-				tamanho();
+				printf("Tamanho da fila: %d\n",tamanho(fila));
 				break;
 			case -1:
 				break;
