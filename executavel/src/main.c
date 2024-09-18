@@ -11,7 +11,6 @@
 
 int main(void){
 	setbuf(stdout,NULL);
-	FILE *arq;
 	FILA fila;
 	ITEM item;
 	int i, y, opcao = 0;
