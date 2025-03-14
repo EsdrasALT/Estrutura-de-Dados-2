@@ -28,6 +28,20 @@ int enqueue(ITEM item,FILA *fila){
 	return 0;
 }
 
+int dequeue(FILA *fila,ITEM *item){
+    PONT remover;
+    
+    if(vazia(*fila))
+        return -1;
+        
+    remover = fila->inicio;
+    fila->inicio = remover->prox;
+    free(remover);
+    fila->tamanho--;
+    
+    return 0;   
+}
+
 int look(FILA *fila,ITEM *item){
 	if (vazia(*fila))
 		return -1;
@@ -42,9 +56,14 @@ void listarElementos(FILA *fila){
 	printf("\n========FILA ATUAL===========\n");
 
 	while(aux !=NULL){
-        printf("|%d| -> ", aux->item.chave);
+        printf("|%d| <- ", aux->item.chave);
         aux = aux->prox;
     }
     printf("NULL\n");
 
 }
+
+int tamanho(FILA fila){
+    return fila.tamanho;
+}
+
