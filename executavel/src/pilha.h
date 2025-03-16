@@ -1,19 +1,41 @@
-#ifndef BIBLIOTECA_H
-#define BIBLIOTECA_H
+/*
+ * pilha.h
+ *
+ *  Created on: 8 de set. de 2024
+ *      Author: Bless
+ */
+
+#ifndef PILHA_H_
+#define PILHA_H_
+
+#define QTDE 50
+
+typedef struct CELULA_TAG *PONT;
+
+typedef struct{
+	char FDE;
+	char caracteres[QTDE];
+} ITEM;
+
+typedef struct CELULA_TAG {
+	ITEM item;
+	PONT prox;
+} CELULA;
 
 typedef struct {
-    int topo;
-    int itens[100];
-} Pilha;
+	PONT fundo,topo;
+	int tamanho;
+} PILHA;
 
-void inicializar_pilha(Pilha *pilha);
-int esta_vazia(Pilha *pilha);
-void empilhar(Pilha *pilha, int valor);
-int desempilhar(Pilha *pilha);
-int topo(Pilha *pilha);
+void cria(PILHA*);
+int vazia(PILHA);
+int push(ITEM,PILHA*); //Inserir (push)
+int pop(PILHA*,ITEM*); //remover (pop)
+int look(PILHA*,ITEM*);
+int tamanho(PILHA);
 
-int precedencia(char op);
-int aplicar_operacao(int a, int b, char op);
-int avaliar(const char *expressao);
 
-#endif
+void examinarExpressao();//const char *expressao = argv[1];
+int identificaFormacao(char x[]);
+
+#endif /* PILHA_H_ */

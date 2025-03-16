@@ -1,92 +1,146 @@
 #include <stdio.h>
-#include <ctype.h>
-#include "biblioteca.h"
+#include <stdlib.h>
+#include "pilha.h"
 
-void inicializar_pilha(Pilha *pilha) {
-    pilha->topo = -1;
+void cria(PILHA *pilha){
+	pilha->topo = (PONT) malloc (sizeof(CELULA));
+	pilha->fundo = pilha->topo;
+	pilha->topo->prox = NULL;
+	pilha->tamanho = 0;
 }
 
-int esta_vazia(Pilha *pilha) {
-    return pilha->topo == -1;
+int push (ITEM x, PILHA *pilha){
+	PONT aux;
+
+	aux = (PONT) malloc (sizeof(CELULA));
+	pilha->topo->item = x;
+	aux->prox = pilha->topo;
+	pilha->topo = aux;
+	pilha->tamanho++;
+	return 0;
 }
 
-void empilhar(Pilha *pilha, int valor) {
-    pilha->itens[++pilha->topo] = valor;
+void examinarExpressao(){
+
+	char exp[QTDE];
+	printf("Digite a sua expressão: \n");
+	fgets(exp, sizeof(exp), stdin);
+	printf("Expressao digitada %s", exp);
+
+    printf("\nExpressao: %s\nRetorno: %d\n", exp, identificaFormacao(exp));
+
 }
 
-int desempilhar(Pilha *pilha) {
-    if (!esta_vazia(pilha)) {
-        return pilha->itens[pilha->topo--];
-    }
-    return -1;
-}
-
-int topo(Pilha *pilha) {
-    if (!esta_vazia(pilha)) {
-        return pilha->itens[pilha->topo];
-    }
-    return -1;
-}
-
-int precedencia(char op) {
-    if (op == '+' || op == '-') return 1;
-    if (op == '*' || op == '/') return 2;
-    return 0;
-}
-
-int aplicar_operacao(int a, int b, char op) {
-    switch (op) {
-        case '+': return a + b;
-        case '-': return a - b;
-        case '*': return a * b;
-        case '/': return a / b;
-        default: return 0;
-    }
-}
-
-int avaliar(const char *expressao) {
-    Pilha pilha_operandos, pilha_operadores;
-    inicializar_pilha(&pilha_operandos);
-    inicializar_pilha(&pilha_operadores);
-    empilhar(&pilha_operadores, 'F');
-
+int identificaFormacao(char x[]){
     int i = 0;
-    while (expressao[i] != '\0') {
-        if (isspace(expressao[i])) {
-            i++;
-            continue;
-        }
+    PILHA remover,pilha;
+    ITEM item;
 
-        if (isdigit(expressao[i])) {
-            empilhar(&pilha_operandos, expressao[i] - '0');
-        } else if (expressao[i] == '(') {
-            empilhar(&pilha_operadores, expressao[i]);
-        } else if (expressao[i] == ')') {
-            while (topo(&pilha_operadores) != '(') {
-                char op = desempilhar(&pilha_operadores);
-                int val2 = desempilhar(&pilha_operandos);
-                int val1 = desempilhar(&pilha_operandos);
-                empilhar(&pilha_operandos, aplicar_operacao(val1, val2, op));
+    cria(&pilha);
+
+    while(x[i] != '\0'){
+        if(x[i] == '[' || x[i] == '(' || x[i] == '{'){
+        	strcpy(item.caracteres, x[i]);
+        	push(pilha, item);
+            imprimir(pilha);
+        }
+        else if(x[i] == ']' || x[i] == ')' || x[i] == '}'){
+//            remover = desempilhar(&pilha);
+            if(forma_par(x[i], pilha.topo->item.caracteres) == 0){
+                printf("\tEXPRESSAO MAL FORMADA!\n");
+                return 1; // expressao está mal formada
             }
-            desempilhar(&pilha_operadores);
-        } else {
-            while (!esta_vazia(&pilha_operadores) && precedencia(topo(&pilha_operadores)) >= precedencia(expressao[i])) {
-                char op = desempilhar(&pilha_operadores);
-                int val2 = desempilhar(&pilha_operandos);
-                int val1 = desempilhar(&pilha_operandos);
-                empilhar(&pilha_operandos, aplicar_operacao(val1, val2, op));
-            }
-            empilhar(&pilha_operadores, expressao[i]);
+            free(remover);
         }
         i++;
     }
-
-    while (topo(&pilha_operadores) != 'F') {
-        char op = desempilhar(&pilha_operadores);
-        int val2 = desempilhar(&pilha_operandos);
-        int val1 = desempilhar(&pilha_operandos);
-        empilhar(&pilha_operandos, aplicar_operacao(val1, val2, op));
+    imprimir(pilha);
+    if(pilha){
+        printf("\tExpressao mal formada!\n");
+        return 1;
     }
-
-    return desempilhar(&pilha_operandos);
+    else{
+        printf("\tEXPRESSAO BEM FORMADA!\n");
+        return 0;
+    }
 }
+
+void imprimir(PILHA *pilha){
+    printf("\n\tPILHA\n");
+    while(pilha){
+        printf("\t%c\n", pilha->topo->item.caracteres);
+        pilha = pilha->topo->prox;
+    }
+    printf("\tFIM PILHA\n\n");
+}
+
+int formarPar(char f, char d){
+    switch(f){
+    case ')':
+        if(d == '(')
+            return 1; // bem formada
+        else
+            return 0; // mal formada
+        break;
+    case ']':
+        if(d == '[')
+            return 1; // bem formada
+        else
+            return 0; // mal formada
+        break;
+    case '}':
+        if(d == '{')
+            return 1; // bem formada
+        else
+            return 0; // mal formada
+        break;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int vazia(PILHA pilha){
+	return(pilha.topo == pilha.fundo);
+}
+
+
+
+int pop(PILHA *pilha, ITEM *item){
+	PONT q;
+
+	if (vazia (*pilha))
+		return -1;
+
+	q = pilha->topo;
+	pilha->topo = q->prox;
+	*item = q->prox->item;
+	free(q);
+	pilha->tamanho--;
+	return 0;
+}
+
+int look (PILHA *pilha, ITEM *item){
+	if(vazia(*pilha))
+		return -1;
+
+	*item = pilha->topo->prox->item;
+	return 0;
+}
+
+int tamanho (PILHA pilha){
+	return pilha.tamanho;
+}
+
+

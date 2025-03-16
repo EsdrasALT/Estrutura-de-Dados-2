@@ -6,7 +6,6 @@
 void cria(PILHA *pilha){
 	pilha->topo = (PONT) malloc (sizeof(CELULA));
 	pilha->fundo = pilha->topo;
-	pilha->topo->prox = pilha->topo;
 	pilha->topo->prox = NULL;
 	pilha->tamanho = 0;
 }
