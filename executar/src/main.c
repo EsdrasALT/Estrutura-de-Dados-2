@@ -1,39 +1,41 @@
 /*
-============================================================================
-Name        : executar.c
-Author      : 
-Version     :
-Copyright   : Your copyright notice
-Description : Hello World in C, Ansi-style
-============================================================================
-*/
+ * main.c
+ *
+ *  Created on: 27 de mar. de 2025
+ *      Author: 2A226844158
+ */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include "fila.h"
+#include "hash.h"
 
 int main(void) {
+	setbuf(stdout,NULL);
+    DICIONARIO dic;
+    CHAVE palavra;
+    ITEM item;
+    int rslt;
 
-	FILA fila;
-	ITEM item;
+    inicializa(dic);
 
-	cria(&fila);
-
-	for (int i=0;i<50;i=i+10){
-		item.chave = i;
-		if(enqueue(item,&fila)){
-			printf("Erro na inserção %d\n",i);
-		}
-		listarElementos(&fila);
-	}
-	
-	while (!dequeue(&fila,&item)){
-        printf("\nTamanho da fila: %d\n", tamanho(fila));   
-        if(look(&fila,&item))   
-            printf("Erro no exame do elemento da fila\n");
-        printf("Elemento no inicio da fila: %d\n",item.chave);
-	    listarElementos(&fila);
-	}
-
-	return 0;
+    for (;;) {
+    	printf("Digite sua palavra: ");
+    	scanf("%20s", palavra);
+        if (strcmp(palavra, "fim") == 0)
+            break;
+        rslt = pesquisa(palavra, dic);
+        if (rslt == -1) {
+        	memset(item.chave, 0, sizeof(CHAVE));
+        	strncpy(item.chave, palavra, N);
+            item.quantidade = 0;
+            rslt = insere(item, dic); // Insere o novo item
+            if(rslt==-1)
+            	printf("Dicionario cheio\n");
+            else {
+            	dic[rslt].quantidade++;
+            	printf("%s: %d\n", dic[rslt].chave,
+            					   dic[rslt].quantidade);
+            }
+        }
+    }
+    return 0;
 }
