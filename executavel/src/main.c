@@ -1,28 +1,24 @@
-/*
- * main.c
- *
- *  Created on: 8 de set. de 2024
- *      Author: Bless
- */
+#include "hash.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "pilha.h"
+int main() {
+    DICIONARIO tabela;
+    inicializa(tabela);
 
-int main(void){
-	setbuf(stdout,NULL);
+    FILE *arq = fopen("src/arq.txt", "r");
+    if (arq == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return 1;
+    }
 
-	PILHA operador,operando;
-	ITEM item;
-	cria(&operador); cria(&operando);
-	item.FDE = '#';
-	if (push(item,&operador) == -1)
-		printf("Erro no empilhanento do FDE: %c\n", item.FDE);
+    ITEM item;
+    while (fscanf(arq, "%s %d", item.chave, &item.quantidade) != EOF) {
+        if (inserirHash(item, tabela) == -1) {
+            printf("Erro na inserção de %s\n", item.chave);
+        }
+    }
 
-	examinasExpressao();
+    imprimeHash(tabela);
 
-	return 0;
-
+    fclose(arq);
+    return 0;
 }
-
-
