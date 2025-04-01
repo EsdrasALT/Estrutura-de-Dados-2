@@ -43,15 +43,16 @@ int calcularChaveHash(CHAVE);
 int inserirHash(ITEM, DICIONARIO);
 int inserirLista(ITEM, LISTA*);
 
+int pesquisaHash(ITEM, DICIONARIO);
+int pesquisaLista(ITEM, LISTA*);
+
 void imprimeHash(DICIONARIO);
 void imprimeLista(LISTA);
 
 int retira(int, LISTA*, ITEM*);
-void imprime(LISTA);
 
 
 
-int pesquisa(int, DICIONARIO, ITEM*);
 
 int retira_hash(int, DICIONARIO);
 

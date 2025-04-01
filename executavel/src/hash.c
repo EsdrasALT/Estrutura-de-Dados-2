@@ -34,21 +34,53 @@ int inserirHash(ITEM item, DICIONARIO dicionario) {
           (i < TAM_VETOR))
         i++;
     if (i < TAM_VETOR) {
-    	return inserirLista(item,dicionario);
+    	inserirLista(item,&dicionario[(inicial+i) % TAM_VETOR]);
+    	return 0;
     } else {
         return -1;
     }
 }
 
 int inserirLista(ITEM item,LISTA *lista){
-
 	lista->ultimo->proximo=(PONT)malloc(sizeof(CELULA));
+
 	lista->ultimo=lista->ultimo->proximo;
 	lista->ultimo->item=item;
 	lista->ultimo->proximo=NULL;
 
 	return 0;
 }
+
+int pesquisaHash(ITEM item, DICIONARIO dicionario){
+    int i, inicial;
+
+    inicial = calcularChaveHash(item.chave);
+    i = 0;
+    while (dicionario[(inicial + i) % TAM_VETOR].ultimo != NULL &&
+    	  strncmp(dicionario[(inicial + i) % TAM_VETOR].ultimo->item.chave, VAZIO, TAM_CHAVE) != 0 &&
+    	  strncmp(dicionario[(inicial + i) % TAM_VETOR].ultimo->item.chave, item.chave, TAM_CHAVE) != 0 &&
+          (i < TAM_VETOR))
+        i++;
+
+    if (dicionario[(inicial + i) % TAM_VETOR].ultimo != NULL &&
+        strncmp(dicionario[(inicial + i) % TAM_VETOR].ultimo->item.chave, item.chave, TAM_CHAVE) == 0) {
+    	return pesquisaLista(item,&dicionario[(inicial+i) % TAM_VETOR]);
+    } else {
+        return -1;
+    }
+}
+
+int pesquisaLista(ITEM item, LISTA *lista){
+	PONT aux = lista->primeiro->proximo;
+	while (aux != NULL){
+		if(strncmp(aux->item.chave, item.chave, TAM_CHAVE) == 0){
+			return aux->item.quantidade;
+		}
+		aux = aux->proximo;
+	}
+	return -1;
+}
+
 
 void imprimeHash(DICIONARIO dicionario) {
     for (int i = 0; i < TAM_VETOR; i++) {
@@ -58,7 +90,6 @@ void imprimeHash(DICIONARIO dicionario) {
         }
     }
 }
-
 
 void imprimeLista(LISTA lista){
 	PONT aux;

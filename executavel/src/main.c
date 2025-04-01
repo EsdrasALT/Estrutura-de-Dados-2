@@ -19,6 +19,16 @@ int main() {
 
     imprimeHash(tabela);
 
+    ITEM pesquisa;
+    strcpy(pesquisa.chave, "uva"); // Copia a string para o array
+    pesquisa.quantidade=pesquisaHash(pesquisa,tabela);
+
+    if(pesquisa.quantidade == -1){
+    	printf("Item %s não existe no dicionario\n", pesquisa.chave);
+    }else{
+    	printf("Valor disponivel do item %s: %d",pesquisa.chave,pesquisa.quantidade);
+    }
+
     fclose(arq);
     return 0;
 }
