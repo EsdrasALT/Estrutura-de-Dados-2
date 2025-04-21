@@ -1,8 +1,12 @@
-#include "hash.h"
 
-int main() {
-    DICIONARIO tabela;
-    inicializa(tabela);
+#include <stdio.h>
+#include "arvore.h"
+
+int main (void) {
+	setbuf(stdout,NULL);
+	ARVORE arvore;
+
+	criaArvore(&arvore);
 
     FILE *arq = fopen("src/arq.txt", "r");
     if (arq == NULL) {
@@ -11,24 +15,97 @@ int main() {
     }
 
     ITEM item;
-    while (fscanf(arq, "%s %d", item.chave, &item.quantidade) != EOF) {
-        if (inserirHash(item, tabela) == -1) {
+    while (fscanf(arq, "%s %lf", item.chave, &item.preco) != EOF) {
+        if (insereArvore(item, &arvore) == -1) {
             printf("Erro na inserção de %s\n", item.chave);
         }
     }
 
-    imprimeHash(tabela);
+    while (1) {
+    	int opcao;
+        printf("\n=== MENU ===\n");
+        printf("1 - Inserir\n");
+        printf("2 - Pesquisar\n");
+        printf("3 - Remover\n");
+        printf("4 - Alterar\n");
+        printf("5 - Imprimir\n");
+        printf("6 - Altura?\n");
+        printf("0 - Sair\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opcao);
+        getchar(); // limpa o \n do buffer
 
-    ITEM pesquisa;
-    strcpy(pesquisa.chave, "uva"); // Copia a string para o array
-    pesquisa.quantidade=pesquisaHash(pesquisa,tabela);
+        switch (opcao) {
+            case 1:
+                printf("Digite o nome do item: ");
+                fgets(item.chave, TAM_CHAR, stdin);
+                item.chave[strcspn(item.chave, "\n")] = '\0';
 
-    if(pesquisa.quantidade == -1){
-    	printf("Item %s não existe no dicionario\n", pesquisa.chave);
-    }else{
-    	printf("Valor disponivel do item %s: %d",pesquisa.chave,pesquisa.quantidade);
+                printf("Digite o preco do item: ");
+                scanf("%lf", &item.preco);
+                getchar();
+
+                if (insereArvore(item, &arvore) == -1)
+                    printf("Item já existe.\n");
+                else
+                    printf("Item inserido com sucesso.\n");
+                break;
+
+            case 2:
+                printf("Digite o nome do item a ser pesquisado: ");
+                fgets(item.chave, TAM_CHAR, stdin);
+                item.chave[strcspn(item.chave, "\n")] = '\0';
+
+                if (pesquisaArvore(&item, &arvore) == -1)
+                    printf("Item não encontrado.\n");
+                else
+                    printf("Item encontrado: %s %.2lf\n", item.chave, item.preco);
+                break;
+
+            case 3:
+                printf("Digite o nome do item a ser removido: ");
+                fgets(item.chave, TAM_CHAR, stdin);
+                item.chave[strcspn(item.chave, "\n")] = '\0';
+
+                if (retiraArvore(item, &arvore) == -1)
+                    printf("Item não encontrado.\n");
+                else
+                    printf("Item removido com sucesso.\n");
+                break;
+
+            case 4:
+                printf("Digite o nome do item a ser alterado: ");
+                fgets(item.chave, TAM_CHAR, stdin);
+                item.chave[strcspn(item.chave, "\n")] = '\0';
+
+                printf("Digite o novo preco do item: ");
+                scanf("%lf", &item.preco);
+                getchar();
+
+                if (alterarArvore(item, &arvore) == -1)
+                    printf("Item não encontrado.\n");
+                else
+                    printf("Valor alterado: %s %.2lf\n", item.chave, item.preco);
+
+                break;
+
+            case 5:
+                printf("In Ordem:\n");
+                percorreInArvore(arvore);
+                break;
+
+            case 6:
+            	printf("Altura da arvore: %d\n",alturaArvore(arvore));
+                break;
+
+            case 0:
+                printf("Encerrando...\n");
+                return 0;
+
+            default:
+                printf("Opcao invalida.\n");
+        }
     }
 
-    fclose(arq);
-    return 0;
+	return 0;
 }

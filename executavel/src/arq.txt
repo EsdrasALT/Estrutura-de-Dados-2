@@ -1,3 +1,15 @@
 banana 10
 maça 20
 uva 30
+abacaxi 15
+laranja 12
+melancia 25
+kiwi 18
+pera 22
+cereja 35
+ameixa 28
+manga 20
+morango 30
+goiaba 16
+pêssego 26
+limão 14
