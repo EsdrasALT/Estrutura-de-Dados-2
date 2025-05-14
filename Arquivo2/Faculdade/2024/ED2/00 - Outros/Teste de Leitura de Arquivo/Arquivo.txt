@@ -1,0 +1,32 @@
+Nome: João Silva
+Idade: 30
+Profissão: Engenheiro de Software
+
+Nome: Maria Oliveira
+Idade: 25
+Profissão: Designer Gráfico
+
+Nome: Pedro Santos
+Idade: 28
+Profissão: Desenvolvedor Web
+
+Nome: Ana Costa
+Idade: 32
+Profissão: Analista de Sistemas
+Nome: Lucas Pereira
+Idade: 27
+Profissão: Arquiteto de Soluções
+
+Nome: Ana Costa
+Idade: 32
+Profissão: Analista de Sistemas
+Nome: Lucas Pereira
+Idade: 27
+Profissão: Arquiteto de Soluções
+
+Nome: Ana Costa
+Idade: 32
+Profissão: Analista de Sistemas
+Nome: Lucas Pereira
+Idade: 27
+Profissão: Arquiteto de Soluções
